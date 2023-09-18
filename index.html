@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BunChat</title>
+  </head>
+  <body>
+    <input id="message-input" type="text" />
+    <button id="send-button">Send</button>
+    <ul id="messages"></ul>
+
+    <script>
+      const socket = new WebSocket("ws://localhost:8080");
+      const messageInput = document.getElementById("message-input");
+      const sendButton = document.getElementById("send-button");
+      const messages = document.getElementById("messages");
+
+      sendButton.addEventListener("click", () => {
+        const message = messageInput.value;
+      });
+
+      socket.onmessage = (event) => {
+        const li = document.createElement("li");
+        li.textContent = `Received: ${event.data}`;
+        messages.appendChild(li);
+      };
+    </script>
+  </body>
+</html>
